@@ -1,8 +1,8 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
     env: {
-        API_URL: "https://hotel-booking-drab-phi.vercel.app/",
-        NEXTAUTH_URL:"https://hotel-booking-drab-phi.vercel.app/",
+        API_URL: "https://hotel-booking-khem.vercel.app",
+        NEXTAUTH_URL:"https://hotel-booking-khem.vercel.app",
 
     },
     images: {
