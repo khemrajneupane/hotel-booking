@@ -25,16 +25,17 @@ async function auth(req: NextRequest, res: any) {
         //@ts-ignore
         clientId: process.env.GOOGLE_CLIENT_ID,
         //@ts-ignore
-        clientSecret: process.env.GOOGLE_CLIENT_SECRET
+        clientSecret: process.env.GOOGLE_CLIENT_SECRET,
       }),
-      CredentialsProvider({// this is for credentials based login authentication
+      CredentialsProvider({
+        // this is for credentials based login authentication
         // @ts-ignore
         async authorize(credentials: Credentials) {
           dbConnect();
 
           const { email, password } = credentials;
 
-          const user = await User.findOne({ email }).select("+password");// check the IUser model where password is type select is false means you cannot see the password. But with select("+password"), we can access here.
+          const user = await User.findOne({ email }).select("+password"); // check the IUser model where password is type select is false means you cannot see the password. But with select("+password"), we can access here.
 
           if (!user) {
             throw new Error("Invalid email or password");
@@ -56,7 +57,7 @@ async function auth(req: NextRequest, res: any) {
     callbacks: {
       jwt: async ({ token, user }) => {
         //console.log("token: ", token)
-       // console.log("user: ", user)
+        // console.log("user: ", user)
         const jwtToken = token as Token;
         user && (token.user = user);
 
@@ -71,9 +72,8 @@ async function auth(req: NextRequest, res: any) {
       },
       session: async ({ session, token }) => {
         session.user = token.user as IUser;
-//console.log("session: ", session)
         //@ts-ignore
-        delete session?.user?.password;// otherwise when you console.log session in pages, it will be visible.
+        delete session?.user?.password; // otherwise when you console.log session in pages, it will be visible.
 
         return session;
       },
@@ -85,4 +85,4 @@ async function auth(req: NextRequest, res: any) {
   });
 }
 
-export { auth as GET, auth as POST };//next auth uses both get and post
+export { auth as GET, auth as POST }; //next auth uses both get and post
