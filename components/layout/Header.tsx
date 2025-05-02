@@ -34,7 +34,7 @@ const Header = () => {
           href="/"
           className="rounded-full overflow-hidden w-12 h-12 flex items-center justify-center bg-gray-100"
         >
-          <i className="ri-home-8-line ri-3x"></i>
+          <i className="ri-home-8-line text-blue-500 ri-3x"></i>
         </Link>
       </div>
       <div className="flex items-center space-x-4">
