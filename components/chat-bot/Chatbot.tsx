@@ -19,11 +19,14 @@ const ChatWidget = () => {
     setInput("");
     if (data?.user?.email) {
       try {
-        const res = await fetch(`${process.env.API_URL}`, {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ message: input }),
-        });
+        const res = await fetch(
+          `https://chatbot-flask-gr15.onrender.com/chat`,
+          {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ message: input }),
+          }
+        );
         const data = await res.json();
         setMessages((prev) => [
           ...prev,
@@ -48,13 +51,15 @@ const ChatWidget = () => {
       <div className="fixed bottom-4 right-4 z-50">
         <div className="relative">
           {isOpen && (
-            <div className="w-80 h-96 bg-white rounded-xl shadow-lg flex flex-col overflow-hidden">
-              <button
-                onClick={() => setIsOpen(false)}
-                className="absolute bottom-90 right-0"
-              >
-                <i className=" ri-close-circle-fill ri-2x"></i>
-              </button>
+            <button
+              onClick={() => setIsOpen(false)}
+              className="absolute top-0 right-1"
+            >
+              <i className="ri-close-circle-fill text-red-500 ri-2x"></i>
+            </button>
+          )}
+          {isOpen && (
+            <div className="w-80 h-96 bg-[#363535] rounded-xl shadow-lg flex flex-col overflow-hidden">
               <div className="flex-1 p-2 overflow-y-auto space-y-2 text-sm">
                 {messages.map((msg, i) => (
                   <div
@@ -84,9 +89,9 @@ const ChatWidget = () => {
                 />
                 <button
                   onClick={sendMessage}
-                  className="bg-blue-500 text-white px-3 py-1 rounded-md text-sm"
+                  className="bg-blue-500 text-white items-center justify-center px-4 py-4 rounded-md overflow-hidden w-17 h-11 flex"
                 >
-                  Send
+                  <i className="ri-send-plane-fill ri-2x"></i>
                 </button>
               </div>
             </div>
@@ -96,7 +101,7 @@ const ChatWidget = () => {
       {!isOpen && (
         <button
           onClick={() => setIsOpen(!isOpen)}
-          className="absolute bottom-2 right-1"
+          className="fixed bottom-0 right-1"
         >
           <i className="bg-blue-600 text-white rounded-full p-3 shadow-lg ri-chat-4-line ri-2x"></i>
         </button>

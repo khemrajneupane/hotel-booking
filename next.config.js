@@ -1,16 +1,9 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   env: {
-    API_URL: "http://localhost:3000/",
-    NEXT_PUBLIC_API_URL_CHAT: "",
-    CLOUDINARY_API_KEY: "",
-    CLOUDINARY_API_SECRET: "",
-    CLOUDINARY_CLOUD_NAME: "",
-    DB_URI: "",
-    GOOGLE_CLIENT_ID: "",
-    GOOGLE_CLIENT_SECRET: "",
-    NEXTAUTH_SECRET: "",
-    NEXTAUTH_URL: "http://localhost:3000/",
+    API_URL: "https://hotel-booking-khem.vercel.app",
+    NEXTAUTH_URL: "https://hotel-booking-khem.vercel.app",
+    NEXTAUTH_SECRET: "justrandomsecret12345",
   },
   images: {
     domains: ["res.cloudinary.com"],

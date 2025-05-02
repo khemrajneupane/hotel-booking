@@ -20,7 +20,7 @@ const Header = () => {
       dispatch(setIsAuthenticated(true));
     }
   }, [data]);
- 
+
   const toggleDropdown = () => {
     setIsOpen(!isOpen);
   };
@@ -28,59 +28,52 @@ const Header = () => {
     signOut();
   };
   return (
-    <header className="bg-gray-800 text-white p-4 flex justify-between items-center bg-gradient-to-r from-blue-800 to-blue-900 text-white p-6">
+    <header className="bg-gray-800 text-white p-4 flex justify-between items-center bg-gradient-to-rbg-[#1f1f1f] text-white p-6">
       <div className="flex items-center">
         <Link
           href="/"
-          className="rounded-full overflow-hidden"
+          className="rounded-full overflow-hidden w-12 h-12 flex items-center justify-center bg-gray-100"
         >
-          <Image
-            style={{ cursor: "pointer" }}
-            src="/images/default_house.jpg"
-            alt="room book"
-            height={100}
-            width={150}
-          />
+          <i className="ri-home-8-line ri-3x"></i>
         </Link>
       </div>
       <div className="flex items-center space-x-4">
         <div onClick={toggleDropdown} className="rounded-full overflow-hidden">
-         {user&&<img
-            src={user?.image || (user?.avatar && user?.avatar.url) || "/images/avatar.jpg"}
-
-            alt="User"
-            className="w-8 h-8 object-cover"
-          />}
+          {user && (
+            <img
+              src={
+                user?.image ||
+                (user?.avatar && user?.avatar.url) ||
+                "/images/avatar.jpg"
+              }
+              alt="User"
+              className="w-8 h-8 object-cover"
+            />
+          )}
         </div>
         <div className="cursor-pointer">
-          <p onClick={toggleDropdown} className="font-semibold">{user?.name}</p>
+          <p onClick={toggleDropdown} className="font-semibold">
+            {user?.name}
+          </p>
           {isOpen && (
             <div className="bg-gray-800 absolute right-0 mt-2 border border-blue-200 rounded-md shadow-md">
               <div>
-                <Link
-                  href="/dashboard"
-                  className="block px-4 py-2"
-                >
+                <Link href="/dashboard" className="block px-4 py-2">
                   Dashboard
                 </Link>
-                <Link
-                  href="/bookings"
-                  className="block px-4 py-2"
-                >
+                <Link href="/bookings" className="block px-4 py-2">
                   My Bookings
                 </Link>
-                {user?.role &&<Link
-                  href="/me/update"
-                  className="block px-4 py-2"
-                >
-                  Profile
-                </Link>}
-                {user?.image&&<Link
-                  href="/me/update"
-                  className="block px-4 py-2"
-                >
-                  Profile
-                </Link>}
+                {user?.role && (
+                  <Link href="/me/update" className="block px-4 py-2">
+                    Profile
+                  </Link>
+                )}
+                {user?.image && (
+                  <Link href="/me/update" className="block px-4 py-2">
+                    Profile
+                  </Link>
+                )}
                 <Link
                   href="/"
                   className="block px-4 py-2"
