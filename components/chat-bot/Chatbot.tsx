@@ -19,7 +19,7 @@ const ChatWidget = () => {
     setInput("");
     if (data?.user?.email) {
       try {
-        const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL_CHAT}`, {
+        const res = await fetch(`${process.env.API_URL}`, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ message: input }),

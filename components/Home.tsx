@@ -6,7 +6,6 @@ import { IRoom } from "@/backend/models/room";
 import CustomPagination from "./layout/CustomPagination";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
-import ChatWidget from "./chat-bot/Chatbot";
 
 interface Props {
   data: {
@@ -50,7 +49,6 @@ export const HomeComponent = ({ data }: Props) => {
         resPerPage={resPerPage}
         filteredRoomsCount={filteredRoomCount}
       />
-      <ChatWidget />
     </div>
   );
 };
