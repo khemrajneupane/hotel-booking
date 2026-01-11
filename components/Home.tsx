@@ -43,7 +43,11 @@ export const HomeComponent = ({ data }: Props) => {
       </div>
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 mt-4">
         {rooms?.length > 0 &&
-          rooms?.map((room) => <RoomItem key={room._id} room={room} />)}
+          rooms?.map((room) => (
+            <React.Fragment key={room._id.toString()}>
+              <RoomItem room={room} />
+            </React.Fragment>
+          ))}
       </div>
       <CustomPagination
         resPerPage={resPerPage}

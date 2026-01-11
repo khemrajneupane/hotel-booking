@@ -5,7 +5,7 @@ import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 import { signOut, useSession } from "next-auth/react";
 import Image from "next/image";
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 const Header = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -13,7 +13,7 @@ const Header = () => {
   // set user data in the state from here
   const dispatch = useAppDispatch();
   const { user } = useAppSelector((state) => state.auth);
-
+  const dropdownRef = useRef<HTMLDivElement>(null);
   useEffect(() => {
     if (data) {
       dispatch(setUser(data?.user));
@@ -21,9 +21,23 @@ const Header = () => {
     }
   }, [data]);
 
-  const toggleDropdown = () => {
-    setIsOpen(!isOpen);
-  };
+  const toggleDropdown = () => setIsOpen((prev) => !prev);
+  // Close dropdowns when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (
+        dropdownRef.current &&
+        !dropdownRef.current.contains(event.target as Node)
+      ) {
+        setIsOpen(false);
+      }
+    };
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
+
   const logoutHandler = () => {
     signOut();
   };
@@ -37,7 +51,7 @@ const Header = () => {
           <i className="ri-home-8-line text-blue-500 ri-3x"></i>
         </Link>
       </div>
-      <div className="flex items-center space-x-4">
+      <div className="flex items-center space-x-4" ref={dropdownRef}>
         <div onClick={toggleDropdown} className="rounded-full overflow-hidden">
           {user && (
             <img
@@ -51,7 +65,7 @@ const Header = () => {
             />
           )}
         </div>
-        <div className="cursor-pointer">
+        <div className="cursor-pointer z-50">
           <p onClick={toggleDropdown} className="font-semibold">
             {user?.name}
           </p>

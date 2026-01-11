@@ -11,8 +11,7 @@ const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
-const { data } = useSession();
-
+  const { data } = useSession();
   const router = useRouter();
   const submiHandler = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -32,8 +31,8 @@ const { data } = useSession();
       router.replace("/");
     }
   };
-  const googleLogin = async()=>await signIn("google");
-  if(data){
+  const googleLogin = async () => await signIn("google");
+  if (data) {
     router.replace("/");
   }
   return (
@@ -88,7 +87,10 @@ const { data } = useSession();
               New User? Register Here{" "}
             </a>
           </div>
-          <button onClick={()=>googleLogin()}className="btn btn-link btn-floating-mx-1">
+          <button
+            onClick={() => googleLogin()}
+            className="btn btn-link btn-floating-mx-1"
+          >
             <i className="fab fa-google"></i>
           </button>
         </form>
